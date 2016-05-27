@@ -1,0 +1,26 @@
+{
+  "name": "see_qwilt",
+  "version": "1.0.0",
+  "description": "Qwilt front end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jake B",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-connect": "^4.0.0",
+    "gulp-develop-server": "^0.5.1",
+    "gulp-webpack": "^1.5.0",
+    "jsx-loader": "^0.13.2",
+    "react-dom": "^15.0.2"
+  },
+  "dependencies": {
+    "flux": "^2.1.1",
+    "object-assign": "^4.1.0",
+    "q": "^1.4.1",
+    "react": "^15.0.2",
+    "superagent": "^2.0.0-alpha.3"
+  }
+}
