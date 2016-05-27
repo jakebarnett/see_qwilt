@@ -1,17 +1,10 @@
 var React = require('react');
 var ProjectsList = require('./ProjectsList.js');
 var CreateProject = require('./CreateProject.js');
-var projectsListStore = require('../stores/projectsListStore.js');
+var ProjectsListStore = require('../stores/projectsListStore.js');
+var ProjectActions = require('../actions/projectActions.js');
 var request = require('superagent');
 
-
-function fetchProjectsListState () {
-  var projectsList = projectsListStore.getAll()
-	console.log("1", projectsList)
-	return {
-		projectsList: projectsList
-	}
-}
 
 var QwiltApp = React.createClass({
 	getInitialState: function() {
@@ -21,17 +14,12 @@ var QwiltApp = React.createClass({
 	},
 	
 	componentDidMount: function() {
-		projectsListStore.addChangeListener("DATA_FROM_SERVER", this._onChange);
-		this.serverRequest = request("http://localhost:3000/projects", function (err, result) {
-			var result = JSON.parse(result.text)
-			this.setState({
-				data: result
-			});
-		}.bind(this));
+    ProjectActions.getAll()
+		ProjectsListStore.addChangeListener("DATA_FROM_SERVER", this._onChange);
 	},
 	
 	componentWillUnmount: function() {
-		projectsListStore.removeChangeListener(this._onChange);
+		ProjectsListStore.removeChangeListener(this._onChange);
 		this.serverRequest.abort();
 	},
 
@@ -46,14 +34,9 @@ var QwiltApp = React.createClass({
 	
 	_onChange: function(data){
 		this.setState({
-			data: data
+			data: ProjectsListStore.projects
 		})
 	},
-  
-
-  
-  
-	
 })
 
 module.exports = QwiltApp

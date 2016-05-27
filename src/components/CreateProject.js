@@ -1,5 +1,6 @@
 var React = require('react');
 var projectsListStore = require('../stores/projectsListStore.js');
+var ProjectActions = require('../actions/projectActions.js');
 
 
 var CreateProject = React.createClass({
@@ -21,7 +22,7 @@ var CreateProject = React.createClass({
 			title: document.getElementById("projectTitle").value,
 			description: document.getElementById("projectDescription").value
 		}
-		projectsListStore.createNew(data)
+		ProjectActions.createNew(data)
 		document.getElementById("projectTitle").value = ""
 		document.getElementById("projectDescription").value = ""
 	}

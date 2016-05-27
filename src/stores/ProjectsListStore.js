@@ -1,54 +1,12 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var asyncRequest  = require('../actions/asyncActions.js')
 var EventEmitter  = require('events').EventEmitter;
 var assign        = require('object-assign');
-var request       = require('superagent')
-var Q             = require('q');
 
 
 var projectsListStore = assign({}, EventEmitter.prototype, {
-  // async fetch, returns a promise that is resolved in updateState
-  fetchDataFromServer: function () {
-    var result = Q( request("http://localhost:3000/projects") );
-    this.updateState(result);
-  },
   
-  // updateState resolves the a promise and fires an action
-  updateState: function(result) {
-    result.then(function(res){
-      AppDispatcher.dispatch({
-        type: "DATA_FROM_SERVER",
-        payload: res.body
-      })
-    })
-  },
+  projectList: [],
   
-  createNew: function (data) {
-    request
-      .post('http://localhost:3000/projects')
-      .send({ title: data.title, description: data.description })
-      .set('Accept', 'application/json')
-      .end(function(err, res){
-        if (err || !res.ok) {
-          console.log('Oh no! error', err);
-        } else {
-          projectsListStore.fetchDataFromServer()
-        }
-      });
-  },
-  
-  delete: function(id) {
-    request
-      .delete('http://localhost:3000/projects/' + id)
-      .end(function(err, res){
-        if (err || !res.ok) {
-          console.log('Oh no! error', err);
-        } else {
-          projectsListStore.fetchDataFromServer()
-        }
-      });
-  },
-
   emitChange: function(CHANGE_EVENT, data) {
     this.emit(CHANGE_EVENT, data);
   },
@@ -63,12 +21,29 @@ var projectsListStore = assign({}, EventEmitter.prototype, {
 });
 
 AppDispatcher.register(function(action) {
-  if (action.type == "DATA_FROM_SERVER") {
-    projectsListStore.emitChange("DATA_FROM_SERVER", action.payload);
+  if (action.type == "fetch-projects") {
+    projectsListStore.projects = action.payload
+    projectsListStore.emitChange("DATA_FROM_SERVER");
   }
   
-  if (action.type == "UPDATE_STATE") {
-    projectsListStore.emitChange("UPDATE_STATE", action.payload);
+  if (action.type == "add-new-project") {
+    projectsListStore.projects.push(action.payload)
+    projectsListStore.emitChange("DATA_FROM_SERVER");
+  }
+  
+  if (action.type == "remove-project") {
+    projectsListStore.projects = projectsListStore.projects.filter(function(project){
+      return project.id !== action.payload.id
+    })
+    projectsListStore.emitChange("DATA_FROM_SERVER");
+  }
+    
+  if (action.type == "update-project") {
+    var index = projectsListStore.projects.findIndex(function(project){
+      return project.id == action.payload.id
+    })
+    projectsListStore.projects[index] = action.payload
+    projectsListStore.emitChange("DATA_FROM_SERVER");
   }
 });
 
