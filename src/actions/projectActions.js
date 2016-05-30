@@ -42,7 +42,6 @@ var ProjectActions = {
 				if (err || !res.ok) {
 					console.log(err);
 				} else {
-					console.log(res.body)
 					AppDispatcher.dispatch({
 						type:'remove-project',
 						payload: res.body

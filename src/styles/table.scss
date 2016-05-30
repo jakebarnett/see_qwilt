@@ -1,0 +1,17 @@
+td {
+	height: 127px;
+	width: 127px;
+	border: 1px solid black;
+}
+
+td:hover {
+	background-color: grey;
+}
+
+.in-use {
+	background-color: red;
+}
+
+.usable{
+	background-color: pink;
+}

@@ -1,9 +1,9 @@
-var React = require('react');
-var ProjectsList = require('./ProjectsList.js');
-var CreateProject = require('./CreateProject.js');
+var React 						= require('react');
+var ProjectsList 			= require('./ProjectsList.js');
+var CreateProject 		= require('./CreateProject.js');
 var ProjectsListStore = require('../stores/projectsListStore.js');
-var ProjectActions = require('../actions/projectActions.js');
-var request = require('superagent');
+var ProjectActions 		= require('../actions/projectActions.js');
+var request 					= require('superagent');
 
 
 var QwiltApp = React.createClass({
@@ -19,8 +19,8 @@ var QwiltApp = React.createClass({
 	},
 	
 	componentWillUnmount: function() {
-		ProjectsListStore.removeChangeListener(this._onChange);
-		this.serverRequest.abort();
+		// ProjectActions.getAll().abort();
+		// ProjectsListStore.removeChangeListener(this._onChange);
 	},
 
 	render: function() {

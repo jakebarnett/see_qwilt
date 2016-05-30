@@ -1,7 +1,6 @@
 var React = require('react');
-var projectsListStore = require('../stores/projectsListStore.js');
 var ProjectActions = require('../actions/projectActions.js');
-var Project = require('./Project.js')
+var ProjectListing = require('./ProjectListing.js')
 
 var ProjectsList = React.createClass({
 	render: function () {
@@ -9,7 +8,7 @@ var ProjectsList = React.createClass({
 		
 		this.props.projectsList.forEach(function(project){
 			projectsList.push(
-				<Project title={project.title} description={project.description} id={project.id} />
+				<ProjectListing title={project.title} description={project.description} id={project.id} />
 			)
 		});
 		
