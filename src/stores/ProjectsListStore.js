@@ -2,7 +2,6 @@ var AppDispatcher = require('../dispatcher/AppDispatcher.js');
 var EventEmitter  = require('events').EventEmitter;
 var assign        = require('object-assign');
 
-
 var ProjectListStore = assign({}, EventEmitter.prototype, {
   
   projectList: [],

@@ -10,6 +10,8 @@
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^0.23.1",
+    "eslint": "^2.11.1",
+    "eslint-plugin-react": "^5.1.1",
     "gulp": "^3.9.1",
     "gulp-connect": "^4.0.0",
     "gulp-develop-server": "^0.5.1",
