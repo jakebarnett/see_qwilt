@@ -2,7 +2,6 @@ var AppDispatcher = require('../dispatcher/AppDispatcher.js')
 var Q             = require('q');
 var request       = require('superagent')
 
-console.log(document.cookie)
 SquareActions = {
 	getProjectSquares: function (projectId) {
 		request

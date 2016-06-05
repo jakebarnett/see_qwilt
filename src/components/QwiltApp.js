@@ -9,7 +9,11 @@ var request 					= require('superagent');
 var QwiltApp = React.createClass({
 	getInitialState: function() {
 		return {
-			data: [{title: "Loading...", description: ""}],
+			data: {
+				owner: [{title: "Loading...", description: ""}],
+				admin: [{title: "Loading...", description: ""}],
+				collaborator: [{title: "Loading...", description: ""}],
+			}
 		}
 	},
 	

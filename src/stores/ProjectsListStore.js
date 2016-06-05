@@ -28,19 +28,19 @@ AppDispatcher.register(function(action) {
   }
   
   if (action.type == "add-new-project") {
-    ProjectListStore.projects.push(action.payload)
+    ProjectListStore.projects.owner.push(action.payload)
     ProjectListStore.emitChange("DATA_FROM_SERVER");
   }
   
   if (action.type == "remove-project") {
-    ProjectListStore.projects = ProjectListStore.projects.filter(function(project){
+    ProjectListStore.projects.owner = ProjectListStore.projects.owner.filter(function(project){
       return project.id !== action.payload.id
     })
     ProjectListStore.emitChange("DATA_FROM_SERVER");
   }
     
   if (action.type == "update-project") {
-    var index = ProjectListStore.projects.findIndex(function(project){
+    var index = ProjectListStore.projects.owner.findIndex(function(project){
       return project.id == action.payload.id
     })
     ProjectListStore.projects[index] = action.payload
